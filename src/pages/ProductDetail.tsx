@@ -1,42 +1,27 @@
 
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { getProductById } from '@/lib/data';
 import { Button } from '@/components/ui/button';
 import { ShoppingCart, Star, Minus, Plus, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
+import { useProductById } from '@/hooks/useProducts';
 
 const ProductDetail = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { addToCart } = useCart();
+  const { data: product, isLoading, error } = useProductById(id || '');
   
-  const [product, setProduct] = useState(id ? getProductById(id) : null);
   const [quantity, setQuantity] = useState(1);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isImageLoading, setIsImageLoading] = useState(true);
   
+  // Reset image index when a new product loads
   useEffect(() => {
-    if (id) {
-      const foundProduct = getProductById(id);
-      if (foundProduct) {
-        setProduct(foundProduct);
-      } else {
-        navigate('/products');
-      }
+    if (product) {
+      setCurrentImageIndex(0);
     }
-  }, [id, navigate]);
-  
-  if (!product) {
-    return (
-      <div className="page-container">
-        <div className="text-center py-12">
-          <h2 className="text-2xl font-medium mb-4">Product not found</h2>
-          <Button onClick={() => navigate('/products')}>Back to Products</Button>
-        </div>
-      </div>
-    );
-  }
+  }, [product]);
   
   const handleQuantityChange = (newQuantity: number) => {
     if (newQuantity >= 1) {
@@ -45,10 +30,13 @@ const ProductDetail = () => {
   };
   
   const handleAddToCart = () => {
-    addToCart(product, quantity);
+    if (product) {
+      addToCart(product, quantity);
+    }
   };
   
   const handlePrevImage = () => {
+    if (!product) return;
     setIsImageLoading(true);
     setCurrentImageIndex((prev) => 
       prev === 0 ? product.images.length - 1 : prev - 1
@@ -56,12 +44,52 @@ const ProductDetail = () => {
   };
   
   const handleNextImage = () => {
+    if (!product) return;
     setIsImageLoading(true);
     setCurrentImageIndex((prev) => 
       prev === product.images.length - 1 ? 0 : prev + 1
     );
   };
 
+  // Handle loading state
+  if (isLoading) {
+    return (
+      <div className="page-container py-8 md:py-16">
+        <div className="animate-pulse">
+          <div className="h-6 w-1/4 bg-gray-200 dark:bg-gray-800 rounded mb-8"></div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-16">
+            <div className="aspect-square bg-gray-200 dark:bg-gray-800 rounded-lg"></div>
+            <div className="space-y-6">
+              <div className="space-y-2">
+                <div className="h-8 bg-gray-200 dark:bg-gray-800 rounded w-3/4"></div>
+                <div className="h-4 bg-gray-200 dark:bg-gray-800 rounded w-1/4"></div>
+                <div className="h-8 bg-gray-200 dark:bg-gray-800 rounded w-1/4 mt-4"></div>
+              </div>
+              <div className="h-24 bg-gray-200 dark:bg-gray-800 rounded"></div>
+              <div className="h-12 bg-gray-200 dark:bg-gray-800 rounded"></div>
+              <div className="h-32 bg-gray-200 dark:bg-gray-800 rounded"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Handle error state
+  if (error || !product) {
+    return (
+      <div className="page-container">
+        <div className="text-center py-12">
+          <h2 className="text-2xl font-medium mb-4">Product not found</h2>
+          <p className="text-muted-foreground mb-6">
+            {error instanceof Error ? error.message : "We couldn't find the product you're looking for."}
+          </p>
+          <Button onClick={() => navigate('/products')}>Back to Products</Button>
+        </div>
+      </div>
+    );
+  }
+  
   return (
     <div className="animate-fade-in">
       <div className="page-container py-8 md:py-16">

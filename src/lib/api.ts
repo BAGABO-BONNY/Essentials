@@ -1,5 +1,5 @@
-
 import { Product, User, Order } from '@/lib/types';
+import { productApi, authApi, orderApi } from './supabase';
 
 // Base URL for our API (would be replaced with actual API URL)
 const API_BASE_URL = '/api';
@@ -76,163 +76,11 @@ export const OrderAPI = {
   getById: (id: string) => fetchApi<Order>(`/orders/${id}`),
 };
 
-// Mock implementations for development
-// These simulate API responses without actually making network requests
-export const MockProductAPI = {
-  getAll: async () => {
-    // Simulate network delay
-    await new Promise(resolve => setTimeout(resolve, 500));
-    return (await import('@/lib/data')).products;
-  },
-  
-  getById: async (id: string) => {
-    await new Promise(resolve => setTimeout(resolve, 500));
-    const products = (await import('@/lib/data')).products;
-    const product = products.find(p => p.id === id);
-    if (!product) throw new Error('Product not found');
-    return product;
-  },
-  
-  getByCategory: async (category: string) => {
-    await new Promise(resolve => setTimeout(resolve, 500));
-    const products = (await import('@/lib/data')).products;
-    return products.filter(p => p.category === category);
-  },
-  
-  getFeatured: async () => {
-    await new Promise(resolve => setTimeout(resolve, 500));
-    const products = (await import('@/lib/data')).products;
-    // Return 4 random products as featured
-    return products
-      .sort(() => 0.5 - Math.random())
-      .slice(0, 4);
-  },
-};
-
-// Stored mock data for authentication
-let mockUsers: Array<User & { password: string }> = [
-  {
-    id: '1',
-    name: 'John Doe',
-    email: 'john@example.com',
-    password: 'password123',
-  }
-];
-
-// Stored mock orders
-let mockOrders: Order[] = [];
-
-export const MockAuthAPI = {
-  login: async (email: string, password: string) => {
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    const user = mockUsers.find(u => u.email === email && u.password === password);
-    if (!user) {
-      throw new Error('Invalid credentials');
-    }
-    
-    const userData = {
-      id: user.id,
-      name: user.name,
-      email: user.email,
-    };
-    
-    const token = `mock-jwt-token-${userData.id}-${Date.now()}`;
-    
-    return {
-      user: userData,
-      token,
-    };
-  },
-  
-  register: async (name: string, email: string, password: string) => {
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    // Check if user already exists
-    if (mockUsers.some(u => u.email === email)) {
-      throw new Error('User with this email already exists');
-    }
-    
-    const newUser = {
-      id: String(mockUsers.length + 1),
-      name,
-      email,
-      password,
-    };
-    
-    mockUsers.push(newUser);
-    
-    const userData = {
-      id: newUser.id,
-      name: newUser.name,
-      email: newUser.email,
-    };
-    
-    const token = `mock-jwt-token-${userData.id}-${Date.now()}`;
-    
-    return {
-      user: userData,
-      token,
-    };
-  },
-  
-  getUser: async () => {
-    await new Promise(resolve => setTimeout(resolve, 500));
-    const userStr = localStorage.getItem('user');
-    if (!userStr) throw new Error('Not authenticated');
-    
-    const userData = JSON.parse(userStr);
-    return userData;
-  },
-};
-
-export const MockOrderAPI = {
-  create: async (order: Omit<Order, 'id' | 'date' | 'status'>) => {
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    const userStr = localStorage.getItem('user');
-    if (!userStr) throw new Error('Not authenticated');
-    
-    const newOrder: Order = {
-      ...order,
-      id: String(mockOrders.length + 1),
-      date: new Date().toISOString(),
-      status: 'pending',
-    };
-    
-    mockOrders.push(newOrder);
-    return newOrder;
-  },
-  
-  getAll: async () => {
-    await new Promise(resolve => setTimeout(resolve, 800));
-    
-    const userStr = localStorage.getItem('user');
-    if (!userStr) throw new Error('Not authenticated');
-    
-    const userData = JSON.parse(userStr);
-    return mockOrders.filter(order => order.userId === userData.id);
-  },
-  
-  getById: async (id: string) => {
-    await new Promise(resolve => setTimeout(resolve, 500));
-    
-    const userStr = localStorage.getItem('user');
-    if (!userStr) throw new Error('Not authenticated');
-    
-    const userData = JSON.parse(userStr);
-    const order = mockOrders.find(o => o.id === id && o.userId === userData.id);
-    
-    if (!order) throw new Error('Order not found');
-    return order;
-  },
-};
-
-// Use mock APIs for development
+// Use Supabase APIs instead of mock ones
 export const api = {
-  products: MockProductAPI,
-  auth: MockAuthAPI,
-  orders: MockOrderAPI, // Now using mock orders API
+  products: productApi,
+  auth: authApi,
+  orders: orderApi,
 };
 
 export default api;
