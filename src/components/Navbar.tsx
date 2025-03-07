@@ -1,16 +1,37 @@
 
 import { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { ShoppingCart, User, Sun, Moon, Menu, X } from 'lucide-react';
+import { 
+  ShoppingCart, 
+  User, 
+  Sun, 
+  Moon, 
+  Menu, 
+  X, 
+  LogOut, 
+  Settings,
+  Heart
+} from 'lucide-react';
 import { useCart } from '@/context/CartContext';
+import { useAuth } from '@/context/AuthContext';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { totalItems } = useCart();
+  const { user, signOut, isAuthenticated } = useAuth();
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -45,6 +66,11 @@ const Navbar = () => {
 
   const isLinkActive = (path: string) => {
     return location.pathname === path;
+  };
+
+  const handleSignOut = () => {
+    signOut();
+    navigate('/');
   };
 
   return (
@@ -86,9 +112,9 @@ const Navbar = () => {
               {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
             </Button>
             
-            <Link to="/auth" className="relative">
+            <Link to="/wishlist" className="relative">
               <Button variant="ghost" size="icon">
-                <User size={20} />
+                <Heart size={20} />
               </Button>
             </Link>
             
@@ -102,6 +128,42 @@ const Navbar = () => {
                 )}
               </Button>
             </Link>
+            
+            {isAuthenticated ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" size="icon" className="relative">
+                    <User size={20} />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-56">
+                  <DropdownMenuLabel>
+                    {user?.name}
+                    <p className="text-xs font-normal text-muted-foreground mt-1">{user?.email}</p>
+                  </DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem onClick={() => navigate('/profile')}>
+                    <User className="mr-2 h-4 w-4" />
+                    <span>Profile</span>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => navigate('/settings')}>
+                    <Settings className="mr-2 h-4 w-4" />
+                    <span>Settings</span>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem onClick={handleSignOut}>
+                    <LogOut className="mr-2 h-4 w-4" />
+                    <span>Log out</span>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <Link to="/auth">
+                <Button variant="ghost" size="icon">
+                  <User size={20} />
+                </Button>
+              </Link>
+            )}
             
             {/* Mobile menu button */}
             <Button 
@@ -138,6 +200,39 @@ const Navbar = () => {
             >
               Shop
             </Link>
+            {isAuthenticated && (
+              <>
+                <Link 
+                  to="/profile" 
+                  className={`block px-3 py-2 rounded-md text-base font-medium ${
+                    isLinkActive('/profile') ? 'bg-primary/10 text-primary' : 'text-foreground hover:bg-primary/5'
+                  }`}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Profile
+                </Link>
+                <button 
+                  className="w-full text-left block px-3 py-2 rounded-md text-base font-medium text-foreground hover:bg-primary/5"
+                  onClick={() => {
+                    handleSignOut();
+                    setIsMobileMenuOpen(false);
+                  }}
+                >
+                  Log Out
+                </button>
+              </>
+            )}
+            {!isAuthenticated && (
+              <Link 
+                to="/auth" 
+                className={`block px-3 py-2 rounded-md text-base font-medium ${
+                  isLinkActive('/auth') ? 'bg-primary/10 text-primary' : 'text-foreground hover:bg-primary/5'
+                }`}
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Sign In
+              </Link>
+            )}
           </div>
         </div>
       )}

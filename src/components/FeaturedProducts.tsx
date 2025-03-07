@@ -2,12 +2,13 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
-import { getFeaturedProducts } from '@/lib/data';
 import ProductCard from '@/components/ProductCard';
+import { useFeaturedProducts } from '@/hooks/useProducts';
+import { Button } from '@/components/ui/button';
 
 const FeaturedProducts = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const featuredProducts = getFeaturedProducts();
+  const { data: featuredProducts, isLoading, error } = useFeaturedProducts();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -30,7 +31,7 @@ const FeaturedProducts = () => {
   return (
     <section 
       id="featured-products" 
-      className="section bg-white dark:bg-transparent"
+      className="section bg-gradient-to-b from-white to-gray-50 dark:from-transparent dark:to-black/10"
     >
       <div className="page-container">
         <div className={`mb-12 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
@@ -43,16 +44,39 @@ const FeaturedProducts = () => {
           </div>
         </div>
         
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {featuredProducts.map((product, index) => (
-            <div 
-              key={product.id}
-              className={`transition-all duration-700 delay-${index * 100} ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+        {isLoading ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[...Array(4)].map((_, i) => (
+              <div key={i} className="animate-pulse">
+                <div className="bg-gray-200 dark:bg-gray-800 rounded-lg aspect-square mb-3"></div>
+                <div className="h-4 bg-gray-200 dark:bg-gray-800 rounded mb-2 w-1/3"></div>
+                <div className="h-4 bg-gray-200 dark:bg-gray-800 rounded mb-4 w-1/2"></div>
+                <div className="h-4 bg-gray-200 dark:bg-gray-800 rounded w-1/4"></div>
+              </div>
+            ))}
+          </div>
+        ) : error ? (
+          <div className="text-center py-12">
+            <p className="text-muted-foreground mb-4">Failed to load products</p>
+            <Button 
+              variant="outline" 
+              onClick={() => window.location.reload()}
             >
-              <ProductCard product={product} />
-            </div>
-          ))}
-        </div>
+              Retry
+            </Button>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {featuredProducts?.map((product, index) => (
+              <div 
+                key={product.id}
+                className={`transition-all duration-700 delay-${index * 100} ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+              >
+                <ProductCard product={product} />
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );
