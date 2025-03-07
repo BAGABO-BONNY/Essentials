@@ -9,12 +9,14 @@ export function useOrders() {
     queryKey: ['orders'],
     queryFn: () => api.orders.getAll(),
     retry: 1,
-    onError: (error) => {
-      toast({
-        title: 'Error fetching orders',
-        description: error instanceof Error ? error.message : 'Something went wrong',
-        variant: 'destructive',
-      });
+    meta: {
+      onError: (error: Error) => {
+        toast({
+          title: 'Error fetching orders',
+          description: error instanceof Error ? error.message : 'Something went wrong',
+          variant: 'destructive',
+        });
+      },
     },
   });
 }
@@ -25,12 +27,14 @@ export function useOrderById(id: string) {
     queryFn: () => api.orders.getById(id),
     enabled: !!id,
     retry: 1,
-    onError: (error) => {
-      toast({
-        title: 'Error fetching order details',
-        description: error instanceof Error ? error.message : 'Something went wrong',
-        variant: 'destructive',
-      });
+    meta: {
+      onError: (error: Error) => {
+        toast({
+          title: 'Error fetching order details',
+          description: error instanceof Error ? error.message : 'Something went wrong',
+          variant: 'destructive',
+        });
+      },
     },
   });
 }

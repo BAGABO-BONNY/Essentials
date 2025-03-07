@@ -24,6 +24,7 @@ export interface User {
 
 export interface Order {
   id: string;
+  userId: string; // Added this field
   items: CartItem[];
   total: number;
   status: 'pending' | 'processing' | 'shipped' | 'delivered';

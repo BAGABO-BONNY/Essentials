@@ -8,12 +8,14 @@ export function useProducts() {
     queryKey: ['products'],
     queryFn: () => api.products.getAll(),
     retry: 2,
-    onError: (error) => {
-      toast({
-        title: 'Error loading products',
-        description: error instanceof Error ? error.message : 'Something went wrong',
-        variant: 'destructive',
-      });
+    meta: {
+      onError: (error: Error) => {
+        toast({
+          title: 'Error loading products',
+          description: error instanceof Error ? error.message : 'Something went wrong',
+          variant: 'destructive',
+        });
+      },
     },
   });
 }
@@ -24,12 +26,14 @@ export function useProductById(id: string) {
     queryFn: () => api.products.getById(id),
     enabled: !!id,
     retry: 1,
-    onError: (error) => {
-      toast({
-        title: 'Error loading product',
-        description: error instanceof Error ? error.message : 'Something went wrong',
-        variant: 'destructive',
-      });
+    meta: {
+      onError: (error: Error) => {
+        toast({
+          title: 'Error loading product',
+          description: error instanceof Error ? error.message : 'Something went wrong',
+          variant: 'destructive',
+        });
+      },
     },
   });
 }
@@ -40,12 +44,14 @@ export function useProductsByCategory(category: string) {
     queryFn: () => api.products.getByCategory(category),
     enabled: !!category,
     retry: 1,
-    onError: (error) => {
-      toast({
-        title: 'Error loading products',
-        description: error instanceof Error ? error.message : 'Something went wrong',
-        variant: 'destructive',
-      });
+    meta: {
+      onError: (error: Error) => {
+        toast({
+          title: 'Error loading products',
+          description: error instanceof Error ? error.message : 'Something went wrong',
+          variant: 'destructive',
+        });
+      },
     },
   });
 }
@@ -55,12 +61,14 @@ export function useFeaturedProducts() {
     queryKey: ['products', 'featured'],
     queryFn: () => api.products.getFeatured(),
     retry: 1,
-    onError: (error) => {
-      toast({
-        title: 'Error loading featured products',
-        description: error instanceof Error ? error.message : 'Something went wrong',
-        variant: 'destructive',
-      });
+    meta: {
+      onError: (error: Error) => {
+        toast({
+          title: 'Error loading featured products',
+          description: error instanceof Error ? error.message : 'Something went wrong',
+          variant: 'destructive',
+        });
+      },
     },
   });
 }
