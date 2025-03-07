@@ -1,52 +1,38 @@
 
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { useAuth } from '@/context/AuthContext';
+import { toast } from '@/components/ui/use-toast';
 
 export const AuthForms = () => {
-  const navigate = useNavigate();
-  const { signIn, signUp, isLoading } = useAuth();
+  const [isLoading, setIsLoading] = useState(false);
   
-  // Sign in form state
-  const [signInEmail, setSignInEmail] = useState('');
-  const [signInPassword, setSignInPassword] = useState('');
-  
-  // Sign up form state
-  const [signUpName, setSignUpName] = useState('');
-  const [signUpEmail, setSignUpEmail] = useState('');
-  const [signUpPassword, setSignUpPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [passwordError, setPasswordError] = useState('');
-  
-  const handleSignIn = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSignIn = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setIsLoading(true);
     
-    const success = await signIn(signInEmail, signInPassword);
-    if (success) {
-      navigate('/');
-    }
+    // Mock authentication - in a real app, you'd call an API
+    setTimeout(() => {
+      setIsLoading(false);
+      toast({
+        description: "Successfully signed in!",
+      });
+    }, 1000);
   };
   
-  const handleSignUp = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSignUp = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setIsLoading(true);
     
-    // Validate passwords match
-    if (signUpPassword !== confirmPassword) {
-      setPasswordError('Passwords do not match');
-      return;
-    }
-    
-    // Clear any previous errors
-    setPasswordError('');
-    
-    const success = await signUp(signUpName, signUpEmail, signUpPassword);
-    if (success) {
-      navigate('/');
-    }
+    // Mock authentication - in a real app, you'd call an API
+    setTimeout(() => {
+      setIsLoading(false);
+      toast({
+        description: "Account created successfully!",
+      });
+    }, 1000);
   };
 
   return (
@@ -65,14 +51,7 @@ export const AuthForms = () => {
         <form onSubmit={handleSignIn} className="space-y-4">
           <div className="space-y-2">
             <Label htmlFor="signin-email">Email</Label>
-            <Input 
-              id="signin-email" 
-              type="email" 
-              required 
-              placeholder="you@example.com" 
-              value={signInEmail}
-              onChange={(e) => setSignInEmail(e.target.value)}
-            />
+            <Input id="signin-email" type="email" required placeholder="you@example.com" />
           </div>
           
           <div className="space-y-2">
@@ -82,14 +61,7 @@ export const AuthForms = () => {
                 Forgot password?
               </a>
             </div>
-            <Input 
-              id="signin-password" 
-              type="password" 
-              required 
-              placeholder="••••••••" 
-              value={signInPassword}
-              onChange={(e) => setSignInPassword(e.target.value)}
-            />
+            <Input id="signin-password" type="password" required placeholder="••••••••" />
           </div>
           
           <Button type="submit" className="w-full" disabled={isLoading}>
@@ -107,54 +79,22 @@ export const AuthForms = () => {
         <form onSubmit={handleSignUp} className="space-y-4">
           <div className="space-y-2">
             <Label htmlFor="signup-name">Full Name</Label>
-            <Input 
-              id="signup-name" 
-              type="text" 
-              required 
-              placeholder="John Doe" 
-              value={signUpName}
-              onChange={(e) => setSignUpName(e.target.value)}
-            />
+            <Input id="signup-name" type="text" required placeholder="John Doe" />
           </div>
           
           <div className="space-y-2">
             <Label htmlFor="signup-email">Email</Label>
-            <Input 
-              id="signup-email" 
-              type="email" 
-              required 
-              placeholder="you@example.com" 
-              value={signUpEmail}
-              onChange={(e) => setSignUpEmail(e.target.value)}
-            />
+            <Input id="signup-email" type="email" required placeholder="you@example.com" />
           </div>
           
           <div className="space-y-2">
             <Label htmlFor="signup-password">Password</Label>
-            <Input 
-              id="signup-password" 
-              type="password" 
-              required 
-              placeholder="••••••••" 
-              value={signUpPassword}
-              onChange={(e) => setSignUpPassword(e.target.value)}
-            />
+            <Input id="signup-password" type="password" required placeholder="••••••••" />
           </div>
           
           <div className="space-y-2">
             <Label htmlFor="signup-confirm-password">Confirm Password</Label>
-            <Input 
-              id="signup-confirm-password" 
-              type="password" 
-              required 
-              placeholder="••••••••" 
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              className={passwordError ? "border-destructive" : ""}
-            />
-            {passwordError && (
-              <p className="text-sm text-destructive">{passwordError}</p>
-            )}
+            <Input id="signup-confirm-password" type="password" required placeholder="••••••••" />
           </div>
           
           <Button type="submit" className="w-full" disabled={isLoading}>
