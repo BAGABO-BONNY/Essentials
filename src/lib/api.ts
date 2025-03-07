@@ -82,12 +82,12 @@ export const MockProductAPI = {
   getAll: async () => {
     // Simulate network delay
     await new Promise(resolve => setTimeout(resolve, 500));
-    return (await import('@/lib/data')).getProducts();
+    return (await import('@/lib/data')).products;
   },
   
   getById: async (id: string) => {
     await new Promise(resolve => setTimeout(resolve, 500));
-    const products = (await import('@/lib/data')).getProducts();
+    const products = (await import('@/lib/data')).products;
     const product = products.find(p => p.id === id);
     if (!product) throw new Error('Product not found');
     return product;
@@ -95,7 +95,7 @@ export const MockProductAPI = {
   
   getByCategory: async (category: string) => {
     await new Promise(resolve => setTimeout(resolve, 500));
-    const products = (await import('@/lib/data')).getProducts();
+    const products = (await import('@/lib/data')).products;
     return products.filter(p => p.category === category);
   },
   
