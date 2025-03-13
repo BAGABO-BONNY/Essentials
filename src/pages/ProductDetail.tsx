@@ -1,7 +1,8 @@
+
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { ShoppingCart, Star, Minus, Plus, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ShoppingCart, Star, Minus, Plus, ChevronLeft, ChevronRight, ImageIcon } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 import { useProductById } from '@/hooks/useProducts';
 
@@ -14,10 +15,12 @@ const ProductDetail = () => {
   const [quantity, setQuantity] = useState(1);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isImageLoading, setIsImageLoading] = useState(true);
+  const [imageError, setImageError] = useState(false);
   
   useEffect(() => {
     if (product) {
       setCurrentImageIndex(0);
+      setImageError(false);
     }
   }, [product]);
   
@@ -34,7 +37,7 @@ const ProductDetail = () => {
   };
   
   const handlePrevImage = () => {
-    if (!product) return;
+    if (!product || !product.images || product.images.length === 0) return;
     setIsImageLoading(true);
     setCurrentImageIndex((prev) => 
       prev === 0 ? product.images.length - 1 : prev - 1
@@ -42,7 +45,7 @@ const ProductDetail = () => {
   };
   
   const handleNextImage = () => {
-    if (!product) return;
+    if (!product || !product.images || product.images.length === 0) return;
     setIsImageLoading(true);
     setCurrentImageIndex((prev) => 
       prev === product.images.length - 1 ? 0 : prev + 1
@@ -101,7 +104,7 @@ const ProductDetail = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-16">
           <div className="relative">
             <div className="aspect-square overflow-hidden rounded-lg bg-muted relative">
-              {product.images.length > 0 && (
+              {product.images && product.images.length > 0 && !imageError ? (
                 <>
                   <div className={`absolute inset-0 transition-opacity duration-500 ${isImageLoading ? 'opacity-100' : 'opacity-0'}`}>
                     <div className="absolute inset-0 bg-muted/50 backdrop-blur-sm flex items-center justify-center">
@@ -113,11 +116,16 @@ const ProductDetail = () => {
                     alt={product.name}
                     className="w-full h-full object-cover object-center"
                     onLoad={() => setIsImageLoading(false)}
+                    onError={() => setImageError(true)}
                   />
                 </>
+              ) : (
+                <div className="w-full h-full bg-muted flex items-center justify-center">
+                  <ImageIcon className="h-24 w-24 text-muted-foreground opacity-50" />
+                </div>
               )}
               
-              {product.images.length > 1 && (
+              {product.images && product.images.length > 1 && !imageError && (
                 <>
                   <Button 
                     variant="ghost" 
@@ -139,7 +147,7 @@ const ProductDetail = () => {
               )}
             </div>
             
-            {product.images.length > 1 && (
+            {product.images && product.images.length > 1 && !imageError && (
               <div className="flex space-x-2 mt-4 overflow-x-auto pb-2">
                 {product.images.map((image, index) => (
                   <button
@@ -156,6 +164,7 @@ const ProductDetail = () => {
                       src={image} 
                       alt={`${product.name} - view ${index + 1}`}
                       className="w-full h-full object-cover object-center"
+                      onError={() => setImageError(true)}
                     />
                   </button>
                 ))}

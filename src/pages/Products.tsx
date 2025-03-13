@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { getProductsByCategory, categories } from '@/lib/data';
@@ -60,8 +61,8 @@ const Products = () => {
 
   return (
     <div className="animate-fade-in">
-      <div className="bg-secondary/30 dark:bg-secondary/5 py-16 mb-8">
-        <div className="page-container">
+      <div className="bg-secondary/30 dark:bg-secondary/5 py-8 mb-4">
+        <div className="page-container py-2">
           <h1 className="text-3xl font-medium mb-2">Shop All Products</h1>
           <p className="text-muted-foreground">Browse our collection of premium products</p>
         </div>

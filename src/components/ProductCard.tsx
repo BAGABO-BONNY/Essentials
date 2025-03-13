@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Product } from '@/lib/types';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ShoppingCart, Star } from 'lucide-react';
+import { ShoppingCart, Star, ImageIcon } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 
 interface ProductCardProps {
@@ -13,6 +13,7 @@ interface ProductCardProps {
 
 const ProductCard = ({ product }: ProductCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
+  const [imageError, setImageError] = useState(false);
   const { addToCart } = useCart();
 
   return (
@@ -22,11 +23,18 @@ const ProductCard = ({ product }: ProductCardProps) => {
       onMouseLeave={() => setIsHovered(false)}
     >
       <Link to={`/product/${product.id}`} className="relative block overflow-hidden aspect-square">
-        <img 
-          src={product.images[0]} 
-          alt={product.name}
-          className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
-        />
+        {product.images && product.images.length > 0 && !imageError ? (
+          <img 
+            src={product.images[0]} 
+            alt={product.name}
+            className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+            onError={() => setImageError(true)}
+          />
+        ) : (
+          <div className="w-full h-full bg-muted flex items-center justify-center">
+            <ImageIcon className="h-16 w-16 text-muted-foreground opacity-50" />
+          </div>
+        )}
         {product.featured && (
           <div className="absolute top-2 left-2 bg-primary text-primary-foreground text-xs font-medium px-2 py-1 rounded">
             Featured
