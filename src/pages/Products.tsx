@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { getProductsByCategory, categories } from '@/lib/data';
@@ -20,11 +19,9 @@ const Products = () => {
   const [searchTerm, setSearchTerm] = useState(searchParam);
   const [filteredProducts, setFilteredProducts] = useState(getProductsByCategory(categoryParam));
   
-  // Update filtered products when params change
   useEffect(() => {
     let products = getProductsByCategory(categoryParam);
     
-    // Apply search filter
     if (searchParam) {
       products = products.filter(product => 
         product.name.toLowerCase().includes(searchParam.toLowerCase()) ||
@@ -33,7 +30,6 @@ const Products = () => {
       );
     }
     
-    // Apply price filter
     products = products.filter(product => 
       product.price >= priceRange[0] && product.price <= priceRange[1]
     );
@@ -73,7 +69,6 @@ const Products = () => {
       
       <div className="page-container">
         <div className="flex flex-col lg:flex-row gap-8">
-          {/* Sidebar filters for larger screens */}
           <div className="hidden lg:block w-64 shrink-0">
             <div className="sticky top-24 space-y-8">
               <div>
@@ -111,7 +106,6 @@ const Products = () => {
             </div>
           </div>
           
-          {/* Mobile filters toggle */}
           <div className="lg:hidden flex justify-between items-center mb-4">
             <Button variant="outline" onClick={toggleFilters}>
               <SlidersHorizontal className="h-4 w-4 mr-2" />
@@ -119,7 +113,6 @@ const Products = () => {
             </Button>
           </div>
           
-          {/* Mobile filters drawer */}
           {showFilters && (
             <div className="fixed inset-0 z-50 bg-black/50 flex justify-end lg:hidden">
               <div className="w-full max-w-xs bg-background p-6 overflow-y-auto">
@@ -171,9 +164,7 @@ const Products = () => {
             </div>
           )}
           
-          {/* Main content */}
           <div className="flex-1">
-            {/* Search and sort */}
             <div className="mb-8">
               <form onSubmit={handleSearch} className="relative max-w-md">
                 <Input
@@ -205,7 +196,6 @@ const Products = () => {
               </form>
             </div>
             
-            {/* Category tabs for mobile */}
             <div className="mb-8 lg:hidden overflow-x-auto pb-2">
               <Tabs value={categoryParam} onValueChange={handleCategoryChange}>
                 <TabsList className="inline-flex w-auto">
@@ -218,7 +208,6 @@ const Products = () => {
               </Tabs>
             </div>
             
-            {/* Products grid */}
             {filteredProducts.length > 0 ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {filteredProducts.map((product) => (

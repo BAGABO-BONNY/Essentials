@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -16,7 +15,6 @@ const ProductDetail = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isImageLoading, setIsImageLoading] = useState(true);
   
-  // Reset image index when a new product loads
   useEffect(() => {
     if (product) {
       setCurrentImageIndex(0);
@@ -51,7 +49,6 @@ const ProductDetail = () => {
     );
   };
 
-  // Handle loading state
   if (isLoading) {
     return (
       <div className="page-container py-8 md:py-16">
@@ -75,7 +72,6 @@ const ProductDetail = () => {
     );
   }
 
-  // Handle error state
   if (error || !product) {
     return (
       <div className="page-container">
@@ -103,7 +99,6 @@ const ProductDetail = () => {
         </Button>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-16">
-          {/* Product Images */}
           <div className="relative">
             <div className="aspect-square overflow-hidden rounded-lg bg-muted relative">
               {product.images.length > 0 && (
@@ -144,7 +139,6 @@ const ProductDetail = () => {
               )}
             </div>
             
-            {/* Thumbnails */}
             {product.images.length > 1 && (
               <div className="flex space-x-2 mt-4 overflow-x-auto pb-2">
                 {product.images.map((image, index) => (
@@ -169,7 +163,6 @@ const ProductDetail = () => {
             )}
           </div>
           
-          {/* Product Info */}
           <div className="space-y-6">
             <div>
               <div className="flex items-center space-x-1 mb-2">
