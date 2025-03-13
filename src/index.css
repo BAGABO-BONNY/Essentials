@@ -58,7 +58,7 @@
     --accent: 240 3.7% 15.9%;
     --accent-foreground: 0 0% 98%;
 
-    --destructive: 0 62.8% 30.6%;
+    --destructive: 0 62.8% 40.6%;
     --destructive-foreground: 0 0% 98%;
 
     --border: 240 3.7% 15.9%;
@@ -102,6 +102,30 @@
   .section {
     @apply py-12 md:py-16 lg:py-24;
   }
+
+  .text-shadow {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .text-shadow-md {
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.08);
+  }
+  
+  .text-shadow-lg {
+    text-shadow: 0 15px 30px rgba(0, 0, 0, 0.11), 0 5px 15px rgba(0, 0, 0, 0.08);
+  }
+  
+  .text-shadow-none {
+    text-shadow: none;
+  }
+  
+  .hover-lift {
+    @apply transition-transform duration-300 hover:-translate-y-1;
+  }
+  
+  .bg-gradient-primary {
+    @apply bg-gradient-to-br from-primary to-primary/80;
+  }
 }
 
 @keyframes animate-in {
@@ -117,4 +141,30 @@
 
 #root {
   @apply min-h-screen flex flex-col;
+}
+
+/* High contrast mode improvements */
+@media (forced-colors: active) {
+  * {
+    --primary: 0 0% 0%;
+    --primary-foreground: 0 0% 100%;
+  }
+}
+
+/* Enhanced visibility for interactive elements */
+button, a {
+  @apply transition-colors duration-200;
+}
+
+.text-enhanced-contrast {
+  @apply text-foreground dark:text-white;
+}
+
+.bg-enhanced-contrast {
+  @apply bg-background dark:bg-black;
+}
+
+/* Improved focus states for accessibility */
+*:focus-visible {
+  @apply outline-2 outline-primary ring-2 ring-primary ring-offset-2;
 }

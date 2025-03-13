@@ -2,7 +2,7 @@
 import Hero from "@/components/Hero";
 import FeaturedProducts from "@/components/FeaturedProducts";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, ShoppingBag, Sparkles, Shield } from "lucide-react";
+import { ArrowRight, ShoppingBag, Sparkles, Shield, Heart } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const Index = () => {
@@ -89,6 +89,38 @@ const Index = () => {
         </div>
       </section>
       
+      {/* New Wishlist Feature section */}
+      <section className="section bg-primary/5">
+        <div className="page-container">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div>
+              <h2 className="text-3xl font-medium mb-6">Save Your Favorites</h2>
+              <p className="text-muted-foreground mb-6">
+                Create your personal wishlist to save products you love. Easily manage your favorite items and add them to your cart whenever you're ready.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Button asChild>
+                  <Link to="/products">
+                    <Heart className="mr-2 h-4 w-4" />
+                    Start Adding
+                  </Link>
+                </Button>
+                <Button variant="outline" asChild>
+                  <Link to="/wishlist">View Wishlist</Link>
+                </Button>
+              </div>
+            </div>
+            <div className="relative aspect-video md:aspect-square rounded-lg overflow-hidden">
+              <img 
+                src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" 
+                alt="Wishlist feature" 
+                className="w-full h-full object-cover"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+      
       {/* CTA section */}
       <section className="section bg-primary text-primary-foreground">
         <div className="page-container text-center">
@@ -96,16 +128,27 @@ const Index = () => {
           <p className="text-primary-foreground/80 max-w-2xl mx-auto mb-8">
             Discover our collection of premium products curated for modern living.
           </p>
-          <Button 
-            size="lg" 
-            variant="outline" 
-            className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground/10"
-            asChild
-          >
-            <Link to="/products">
-              Shop Collection <ArrowRight className="ml-2 h-4 w-4" />
-            </Link>
-          </Button>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button 
+              size="lg" 
+              variant="outline" 
+              className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground/10"
+              asChild
+            >
+              <Link to="/products">
+                Shop Collection <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
+            <Button 
+              size="lg" 
+              className="bg-primary-foreground text-primary hover:bg-primary-foreground/90"
+              asChild
+            >
+              <Link to="/about">
+                Learn More
+              </Link>
+            </Button>
+          </div>
         </div>
       </section>
     </div>

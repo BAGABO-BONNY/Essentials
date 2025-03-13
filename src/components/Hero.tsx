@@ -73,6 +73,7 @@ const Hero = () => {
                 variant="outline" 
                 size="lg" 
                 className="text-white border-white hover:bg-white/10"
+                onClick={() => navigate('/about')}
               >
                 Learn More
                 <ArrowRight className="ml-2 h-4 w-4" />

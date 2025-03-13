@@ -4,8 +4,10 @@ import { Link } from 'react-router-dom';
 import { Product } from '@/lib/types';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ShoppingCart, Star, ImageIcon } from 'lucide-react';
+import { ShoppingCart, Star, ImageIcon, Heart } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
+import { useWishlist } from '@/context/WishlistContext';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
 interface ProductCardProps {
   product: Product;
@@ -15,6 +17,9 @@ const ProductCard = ({ product }: ProductCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
   const [imageError, setImageError] = useState(false);
   const { addToCart } = useCart();
+  const { addToWishlist, isInWishlist } = useWishlist();
+
+  const isProductInWishlist = isInWishlist(product.id);
 
   return (
     <Card 
@@ -40,6 +45,21 @@ const ProductCard = ({ product }: ProductCardProps) => {
             Featured
           </div>
         )}
+        
+        <Button 
+          variant="ghost" 
+          size="icon"
+          className="absolute top-2 right-2 bg-white/80 dark:bg-black/50 backdrop-blur-sm hover:bg-white dark:hover:bg-black/70 text-foreground transition-opacity duration-300"
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            addToWishlist(product);
+          }}
+        >
+          <Heart 
+            className={`h-4 w-4 ${isProductInWishlist ? 'fill-red-500 text-red-500' : 'text-foreground'}`} 
+          />
+        </Button>
       </Link>
       
       <CardContent className="p-4">
@@ -57,18 +77,27 @@ const ProductCard = ({ product }: ProductCardProps) => {
         <div className="flex justify-between items-center">
           <span className="font-medium">${product.price.toFixed(2)}</span>
           
-          <Button 
-            variant="ghost" 
-            size="sm" 
-            className="transition-opacity duration-300"
-            onClick={(e) => {
-              e.preventDefault();
-              addToCart(product);
-            }}
-          >
-            <ShoppingCart className="h-4 w-4 mr-2" />
-            <span>Add</span>
-          </Button>
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  className="transition-opacity duration-300"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    addToCart(product);
+                  }}
+                >
+                  <ShoppingCart className="h-4 w-4 mr-2" />
+                  <span>Add</span>
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Add to cart</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
         </div>
       </CardContent>
     </Card>

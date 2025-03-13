@@ -11,10 +11,12 @@ import {
   X, 
   LogOut, 
   Settings,
-  Heart
+  Heart,
+  Info
 } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 import { useAuth } from '@/context/AuthContext';
+import { useWishlist } from '@/context/WishlistContext';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -23,6 +25,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Badge } from "@/components/ui/badge";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -30,6 +33,7 @@ const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { totalItems } = useCart();
   const { user, signOut, isAuthenticated } = useAuth();
+  const { wishlist } = useWishlist();
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -76,7 +80,7 @@ const Navbar = () => {
   return (
     <header 
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-white/80 dark:bg-black/80 backdrop-blur-md shadow-sm' : 'bg-transparent'
+        isScrolled ? 'bg-white/90 dark:bg-black/90 backdrop-blur-md shadow-sm' : 'bg-transparent'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -104,6 +108,14 @@ const Navbar = () => {
             >
               Shop
             </Link>
+            <Link 
+              to="/about" 
+              className={`text-sm font-medium transition-colors hover:text-primary ${
+                isLinkActive('/about') ? 'text-primary' : 'text-muted-foreground'
+              }`}
+            >
+              About Us
+            </Link>
           </nav>
 
           {/* Actions */}
@@ -115,6 +127,11 @@ const Navbar = () => {
             <Link to="/wishlist" className="relative">
               <Button variant="ghost" size="icon">
                 <Heart size={20} />
+                {wishlist.length > 0 && (
+                  <Badge variant="destructive" className="absolute -top-2 -right-2 h-5 w-5 flex items-center justify-center p-0 text-xs">
+                    {wishlist.length}
+                  </Badge>
+                )}
               </Button>
             </Link>
             
@@ -122,9 +139,9 @@ const Navbar = () => {
               <Button variant="ghost" size="icon">
                 <ShoppingCart size={20} />
                 {totalItems > 0 && (
-                  <span className="absolute -top-2 -right-2 flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-primary rounded-full">
+                  <Badge variant="primary" className="absolute -top-2 -right-2 h-5 w-5 flex items-center justify-center p-0 text-xs">
                     {totalItems}
-                  </span>
+                  </Badge>
                 )}
               </Button>
             </Link>
@@ -145,6 +162,10 @@ const Navbar = () => {
                   <DropdownMenuItem onClick={() => navigate('/profile')}>
                     <User className="mr-2 h-4 w-4" />
                     <span>Profile</span>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => navigate('/wishlist')}>
+                    <Heart className="mr-2 h-4 w-4" />
+                    <span>Wishlist</span>
                   </DropdownMenuItem>
                   <DropdownMenuItem onClick={() => navigate('/settings')}>
                     <Settings className="mr-2 h-4 w-4" />
@@ -199,6 +220,24 @@ const Navbar = () => {
               onClick={() => setIsMobileMenuOpen(false)}
             >
               Shop
+            </Link>
+            <Link 
+              to="/about" 
+              className={`block px-3 py-2 rounded-md text-base font-medium ${
+                isLinkActive('/about') ? 'bg-primary/10 text-primary' : 'text-foreground hover:bg-primary/5'
+              }`}
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              About Us
+            </Link>
+            <Link 
+              to="/wishlist" 
+              className={`block px-3 py-2 rounded-md text-base font-medium ${
+                isLinkActive('/wishlist') ? 'bg-primary/10 text-primary' : 'text-foreground hover:bg-primary/5'
+              }`}
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Wishlist
             </Link>
             {isAuthenticated && (
               <>
