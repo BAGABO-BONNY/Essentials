@@ -17,6 +17,9 @@ const ProductDetail = () => {
   const [isImageLoading, setIsImageLoading] = useState(true);
   const [imageError, setImageError] = useState(false);
   
+  // Fallback image for when product images are missing or fail to load
+  const fallbackImage = "https://images.unsplash.com/photo-1505843490701-5c4b83b47dc3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80";
+  
   useEffect(() => {
     if (product) {
       setCurrentImageIndex(0);
@@ -89,6 +92,11 @@ const ProductDetail = () => {
     );
   }
   
+  // Get the display image (either from product or fallback)
+  const displayImage = !imageError && product.images && product.images.length > 0
+    ? product.images[currentImageIndex]
+    : fallbackImage;
+  
   return (
     <div className="animate-fade-in">
       <div className="page-container py-8 md:py-16">
@@ -104,7 +112,7 @@ const ProductDetail = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-16">
           <div className="relative">
             <div className="aspect-square overflow-hidden rounded-lg bg-muted relative">
-              {product.images && product.images.length > 0 && !imageError ? (
+              {displayImage ? (
                 <>
                   <div className={`absolute inset-0 transition-opacity duration-500 ${isImageLoading ? 'opacity-100' : 'opacity-0'}`}>
                     <div className="absolute inset-0 bg-muted/50 backdrop-blur-sm flex items-center justify-center">
@@ -112,7 +120,7 @@ const ProductDetail = () => {
                     </div>
                   </div>
                   <img 
-                    src={product.images[currentImageIndex]} 
+                    src={displayImage} 
                     alt={product.name}
                     className="w-full h-full object-cover object-center"
                     onLoad={() => setIsImageLoading(false)}
@@ -120,9 +128,11 @@ const ProductDetail = () => {
                   />
                 </>
               ) : (
-                <div className="w-full h-full bg-muted flex items-center justify-center">
-                  <ImageIcon className="h-24 w-24 text-muted-foreground opacity-50" />
-                </div>
+                <img 
+                  src={fallbackImage}
+                  alt={product.name}
+                  className="w-full h-full object-cover object-center"
+                />
               )}
               
               {product.images && product.images.length > 1 && !imageError && (

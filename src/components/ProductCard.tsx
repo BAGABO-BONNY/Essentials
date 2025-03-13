@@ -20,6 +20,9 @@ const ProductCard = ({ product }: ProductCardProps) => {
   const { addToWishlist, isInWishlist } = useWishlist();
 
   const isProductInWishlist = isInWishlist(product.id);
+  
+  // Fallback image for when the product image fails to load
+  const fallbackImage = "https://images.unsplash.com/photo-1505843490701-5c4b83b47dc3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80";
 
   return (
     <Card 
@@ -28,17 +31,19 @@ const ProductCard = ({ product }: ProductCardProps) => {
       onMouseLeave={() => setIsHovered(false)}
     >
       <Link to={`/product/${product.id}`} className="relative block overflow-hidden aspect-square">
-        {product.images && product.images.length > 0 && !imageError ? (
+        {!imageError ? (
           <img 
-            src={product.images[0]} 
+            src={product.images && product.images.length > 0 ? product.images[0] : fallbackImage} 
             alt={product.name}
             className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
             onError={() => setImageError(true)}
           />
         ) : (
-          <div className="w-full h-full bg-muted flex items-center justify-center">
-            <ImageIcon className="h-16 w-16 text-muted-foreground opacity-50" />
-          </div>
+          <img 
+            src={fallbackImage}
+            alt={product.name}
+            className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+          />
         )}
         {product.featured && (
           <div className="absolute top-2 left-2 bg-primary text-primary-foreground text-xs font-medium px-2 py-1 rounded">
