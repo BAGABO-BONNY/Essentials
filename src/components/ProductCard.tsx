@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Product } from '@/lib/types';
@@ -8,6 +7,8 @@ import { ShoppingCart, Star, ImageIcon, Heart } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 import { useWishlist } from '@/context/WishlistContext';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import QuickViewButton from '@/components/QuickViewButton';
+import CompareButton from '@/components/CompareButton';
 
 interface ProductCardProps {
   product: Product;
@@ -21,6 +22,23 @@ const ProductCard = ({ product }: ProductCardProps) => {
 
   const isProductInWishlist = isInWishlist(product.id);
   
+  // Track product view when clicking on product
+  const handleProductClick = () => {
+    const recentItems = localStorage.getItem('recentlyViewed');
+    let recentProducts = recentItems ? JSON.parse(recentItems) : [];
+    
+    // Remove product if it already exists in the list
+    recentProducts = recentProducts.filter((p: Product) => p.id !== product.id);
+    
+    // Add product to the beginning of the array
+    recentProducts.unshift(product);
+    
+    // Keep only the last 8 products
+    recentProducts = recentProducts.slice(0, 8);
+    
+    localStorage.setItem('recentlyViewed', JSON.stringify(recentProducts));
+  };
+  
   // Fallback image for when the product image fails to load
   const fallbackImage = "https://images.unsplash.com/photo-1505843490701-5c4b83b47dc3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80";
 
@@ -30,7 +48,11 @@ const ProductCard = ({ product }: ProductCardProps) => {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <Link to={`/product/${product.id}`} className="relative block overflow-hidden aspect-square">
+      <Link 
+        to={`/product/${product.id}`} 
+        className="relative block overflow-hidden aspect-square"
+        onClick={handleProductClick}
+      >
         {!imageError ? (
           <img 
             src={product.images && product.images.length > 0 ? product.images[0] : fallbackImage} 
@@ -65,6 +87,9 @@ const ProductCard = ({ product }: ProductCardProps) => {
             className={`h-4 w-4 ${isProductInWishlist ? 'fill-red-500 text-red-500' : 'text-foreground'}`} 
           />
         </Button>
+        
+        <CompareButton product={product} />
+        <QuickViewButton product={product} />
       </Link>
       
       <CardContent className="p-4">
@@ -73,7 +98,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
           <span className="text-sm font-medium">{product.rating}</span>
         </div>
         
-        <Link to={`/product/${product.id}`}>
+        <Link to={`/product/${product.id}`} onClick={handleProductClick}>
           <h3 className="font-medium text-base mb-1 transition-colors hover:text-primary">{product.name}</h3>
         </Link>
         

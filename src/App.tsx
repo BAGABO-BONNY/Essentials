@@ -18,6 +18,7 @@ import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
 import Wishlist from "./pages/Wishlist";
 import About from "./pages/About";
+import Compare from "./pages/Compare";
 
 const queryClient = new QueryClient();
 
@@ -42,6 +43,7 @@ const App = () => (
                     <Route path="/auth" element={<Auth />} />
                     <Route path="/wishlist" element={<Wishlist />} />
                     <Route path="/about" element={<About />} />
+                    <Route path="/compare" element={<Compare />} />
                     <Route path="*" element={<NotFound />} />
                   </Routes>
                 </main>

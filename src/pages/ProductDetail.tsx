@@ -1,10 +1,10 @@
-
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { ShoppingCart, Star, Minus, Plus, ChevronLeft, ChevronRight, ImageIcon } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 import { useProductById } from '@/hooks/useProducts';
+import RecentlyViewed from '@/components/RecentlyViewed';
 
 const ProductDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -24,6 +24,21 @@ const ProductDetail = () => {
     if (product) {
       setCurrentImageIndex(0);
       setImageError(false);
+      
+      // Track product view
+      const recentItems = localStorage.getItem('recentlyViewed');
+      let recentProducts = recentItems ? JSON.parse(recentItems) : [];
+      
+      // Remove product if it already exists in the list
+      recentProducts = recentProducts.filter((p: any) => p.id !== product.id);
+      
+      // Add product to the beginning of the array
+      recentProducts.unshift(product);
+      
+      // Keep only the last 8 products
+      recentProducts = recentProducts.slice(0, 8);
+      
+      localStorage.setItem('recentlyViewed', JSON.stringify(recentProducts));
     }
   }, [product]);
   
@@ -254,6 +269,8 @@ const ProductDetail = () => {
           </div>
         </div>
       </div>
+      
+      <RecentlyViewed />
     </div>
   );
 };
