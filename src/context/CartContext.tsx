@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { CartItem, Product } from '@/lib/types';
 import { toast } from '@/components/ui/use-toast';
@@ -11,19 +10,24 @@ interface CartContextType {
   clearCart: () => void;
   totalItems: number;
   subtotal: number;
+  isInCart: (productId: string) => boolean;
+  getCartItemQuantity: (productId: string) => number;
+  incrementQuantity: (productId: string) => void;
+  decrementQuantity: (productId: string) => void;
+  maxQuantityPerItem: number;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
+
+const MAX_QUANTITY_PER_ITEM = 10;
 
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [cart, setCart] = useState<CartItem[]>([]);
   const [mounted, setMounted] = useState(false);
 
-  // Calculate derived values
   const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
   const subtotal = cart.reduce((total, item) => total + (item.product.price * item.quantity), 0);
 
-  // Initialize cart from localStorage
   useEffect(() => {
     const storedCart = localStorage.getItem('cart');
     if (storedCart) {
@@ -36,21 +40,50 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setMounted(true);
   }, []);
 
-  // Save cart to localStorage whenever it changes
   useEffect(() => {
     if (mounted) {
       localStorage.setItem('cart', JSON.stringify(cart));
     }
   }, [cart, mounted]);
 
+  const isInCart = (productId: string): boolean => {
+    return cart.some(item => item.product.id === productId);
+  };
+
+  const getCartItemQuantity = (productId: string): number => {
+    const item = cart.find(item => item.product.id === productId);
+    return item ? item.quantity : 0;
+  };
+
   const addToCart = (product: Product, quantity = 1) => {
+    if (quantity <= 0) return;
+    
     setCart(prevCart => {
       const existingItem = prevCart.find(item => item.product.id === product.id);
       
       if (existingItem) {
+        const newQuantity = Math.min(existingItem.quantity + quantity, MAX_QUANTITY_PER_ITEM);
+        
+        if (existingItem.quantity === MAX_QUANTITY_PER_ITEM) {
+          toast({
+            description: `Maximum quantity of ${MAX_QUANTITY_PER_ITEM} items reached`,
+          });
+          return prevCart;
+        }
+        
+        if (newQuantity === MAX_QUANTITY_PER_ITEM) {
+          toast({
+            description: `Added to maximum quantity of ${MAX_QUANTITY_PER_ITEM}`,
+          });
+        } else {
+          toast({
+            description: `${product.name} quantity updated in cart`,
+          });
+        }
+        
         return prevCart.map(item => 
           item.product.id === product.id 
-            ? { ...item, quantity: item.quantity + quantity } 
+            ? { ...item, quantity: newQuantity } 
             : item
         );
       }
@@ -72,7 +105,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const updateQuantity = (productId: string, quantity: number) => {
-    if (quantity < 1) return;
+    if (quantity < 1 || quantity > MAX_QUANTITY_PER_ITEM) return;
     
     setCart(prevCart => 
       prevCart.map(item => 
@@ -81,6 +114,48 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
           : item
       )
     );
+  };
+
+  const incrementQuantity = (productId: string) => {
+    setCart(prevCart => {
+      const existingItem = prevCart.find(item => item.product.id === productId);
+      
+      if (!existingItem) return prevCart;
+      
+      if (existingItem.quantity >= MAX_QUANTITY_PER_ITEM) {
+        toast({
+          description: `Maximum quantity of ${MAX_QUANTITY_PER_ITEM} items reached`,
+        });
+        return prevCart;
+      }
+      
+      return prevCart.map(item => 
+        item.product.id === productId 
+          ? { ...item, quantity: item.quantity + 1 } 
+          : item
+      );
+    });
+  };
+
+  const decrementQuantity = (productId: string) => {
+    setCart(prevCart => {
+      const existingItem = prevCart.find(item => item.product.id === productId);
+      
+      if (!existingItem) return prevCart;
+      
+      if (existingItem.quantity <= 1) {
+        toast({
+          description: "Item removed from cart",
+        });
+        return prevCart.filter(item => item.product.id !== productId);
+      }
+      
+      return prevCart.map(item => 
+        item.product.id === productId 
+          ? { ...item, quantity: item.quantity - 1 } 
+          : item
+      );
+    });
   };
 
   const clearCart = () => {
@@ -98,7 +173,12 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
       updateQuantity,
       clearCart,
       totalItems,
-      subtotal
+      subtotal,
+      isInCart,
+      getCartItemQuantity,
+      incrementQuantity,
+      decrementQuantity,
+      maxQuantityPerItem: MAX_QUANTITY_PER_ITEM
     }}>
       {children}
     </CartContext.Provider>
