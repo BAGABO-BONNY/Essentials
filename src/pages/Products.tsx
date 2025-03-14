@@ -6,9 +6,9 @@ import ProductCard from '@/components/ProductCard';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { Slider } from '@/components/ui/slider';
-import { SlidersHorizontal, Search, X } from 'lucide-react';
+import { SlidersHorizontal, Search, X, Info } from 'lucide-react';
+import { getFallbackImage } from '@/lib/imageUtils';
 
 const Products = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -59,12 +59,43 @@ const Products = () => {
     setShowFilters(!showFilters);
   };
 
+  // Category descriptions for enhanced UI
+  const categoryDescriptions: Record<string, string> = {
+    All: "Browse our complete collection of premium products across all categories. From modern home essentials to cutting-edge electronics, discover items that blend style, functionality, and quality.",
+    Lighting: "Illuminate your space with our designer lighting collection. From minimalist desk lamps to statement pendant lights, find pieces that transform any room with the perfect ambiance.",
+    Furniture: "Discover thoughtfully crafted furniture that combines comfort, durability, and timeless design. Each piece is selected to enhance your living spaces while standing the test of time.",
+    Audio: "Experience sound as it was meant to be heard with our premium audio equipment. From noise-cancelling headphones to high-fidelity speakers, elevate your listening experience.",
+    "Smart Home": "Transform your living space with intuitive smart home devices that simplify daily tasks, enhance security, and create a more connected living environment.",
+    Computers: "Stay productive and creative with our selection of high-performance computing devices. From ultra-thin laptops to powerful accessories, find technology that keeps up with your lifestyle.",
+    Kitchen: "Elevate your culinary experience with our thoughtfully designed kitchen essentials. From pour-over coffee sets to precision cooking tools, make every meal a masterpiece.",
+    "Home Decor": "Add character and style to your living spaces with our curated home décor collection. Find pieces that reflect your personal aesthetic while enhancing your home's atmosphere.",
+    Electronics: "Discover innovative electronics that combine cutting-edge technology with intuitive design. From charging solutions to everyday gadgets, find devices that enhance your daily life."
+  };
+
   return (
     <div className="animate-fade-in">
-      <div className="bg-secondary/30 dark:bg-secondary/5 py-8 mb-4">
-        <div className="page-container py-2">
-          <h1 className="text-3xl font-medium mb-2">Shop All Products</h1>
-          <p className="text-muted-foreground">Browse our collection of premium products</p>
+      <div className="bg-secondary/30 dark:bg-secondary/5 py-10 mb-6">
+        <div className="page-container py-4">
+          <h1 className="text-3xl font-medium mb-4">Shop {categoryParam} Products</h1>
+          <p className="text-muted-foreground max-w-3xl">
+            {categoryDescriptions[categoryParam] || categoryDescriptions["All"]}
+          </p>
+          
+          {categoryParam !== 'All' && (
+            <div className="mt-6 flex items-center">
+              <div className="w-16 h-16 rounded-full overflow-hidden mr-4 bg-background shadow-sm">
+                <img 
+                  src={getFallbackImage(categoryParam)} 
+                  alt={categoryParam} 
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div>
+                <span className="text-sm text-muted-foreground">Category</span>
+                <h2 className="text-xl font-medium">{categoryParam}</h2>
+              </div>
+            </div>
+          )}
         </div>
       </div>
       
@@ -103,6 +134,19 @@ const Products = () => {
                   <span>${priceRange[0]}</span>
                   <span>${priceRange[1]}</span>
                 </div>
+              </div>
+              
+              <div className="p-4 bg-muted/50 rounded-lg space-y-2">
+                <h3 className="font-medium flex items-center">
+                  <Info className="h-4 w-4 mr-2" />
+                  Shopping Tips
+                </h3>
+                <ul className="text-sm text-muted-foreground space-y-2">
+                  <li>• Free shipping on orders over $100</li>
+                  <li>• 30-day hassle-free returns</li>
+                  <li>• Price match guarantee</li>
+                  <li>• Secure checkout process</li>
+                </ul>
               </div>
             </div>
           </div>
@@ -210,15 +254,25 @@ const Products = () => {
             </div>
             
             {filteredProducts.length > 0 ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filteredProducts.map((product) => (
-                  <ProductCard key={product.id} product={product} />
-                ))}
-              </div>
+              <>
+                <div className="flex justify-between items-center mb-6">
+                  <p className="text-muted-foreground">
+                    Showing <span className="font-medium text-foreground">{filteredProducts.length}</span> products
+                  </p>
+                </div>
+                
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {filteredProducts.map((product) => (
+                    <ProductCard key={product.id} product={product} />
+                  ))}
+                </div>
+              </>
             ) : (
-              <div className="text-center py-12">
+              <div className="text-center py-12 border border-dashed rounded-lg">
                 <h3 className="text-lg font-medium mb-2">No products found</h3>
-                <p className="text-muted-foreground mb-4">Try adjusting your filters or search term</p>
+                <p className="text-muted-foreground mb-6 max-w-md mx-auto">
+                  We couldn't find any products matching your current filters. Try adjusting your price range, search term, or browse a different category.
+                </p>
                 <Button onClick={clearSearch}>Clear filters</Button>
               </div>
             )}

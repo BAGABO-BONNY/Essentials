@@ -2,7 +2,6 @@
 import { useState, useEffect } from 'react';
 import { Product } from '@/lib/types';
 import ProductCard from '@/components/ProductCard';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import {
   Carousel,
   CarouselContent,
@@ -26,7 +25,17 @@ const RecentlyViewed = () => {
   return (
     <div className="py-12 border-t">
       <div className="page-container">
-        <h2 className="text-2xl font-medium mb-8">Recently Viewed</h2>
+        <div className="flex justify-between items-center mb-8">
+          <div>
+            <h2 className="text-2xl font-medium mb-2">Recently Viewed</h2>
+            <p className="text-muted-foreground">Products you've recently explored</p>
+          </div>
+          
+          <div className="hidden sm:flex items-center gap-2">
+            <CarouselPrevious className="relative static" />
+            <CarouselNext className="relative static" />
+          </div>
+        </div>
         
         <Carousel className="w-full">
           <CarouselContent>
@@ -36,7 +45,7 @@ const RecentlyViewed = () => {
               </CarouselItem>
             ))}
           </CarouselContent>
-          <div className="flex justify-center mt-4">
+          <div className="flex justify-center mt-6 sm:hidden">
             <CarouselPrevious className="relative static mx-2" />
             <CarouselNext className="relative static mx-2" />
           </div>
