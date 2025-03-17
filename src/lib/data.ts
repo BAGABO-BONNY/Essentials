@@ -1,5 +1,41 @@
 import { Product } from './types';
 
+export const categories = [
+  'All',
+  'Lighting',
+  'Furniture',
+  'Audio',
+  'Smart Home',
+  'Computers',
+  'Kitchen',
+  'Home Decor',
+  'Electronics',
+  'Home Office',
+  'Fitness',
+  'Outdoor',
+  'Gaming',
+  'Accessories',
+  'Personal Care',
+  'Bathroom',
+  'Bedding',
+  'Home Appliances'
+];
+
+export const getProductById = (id: string): Product | undefined => {
+  return products.find(product => product.id === id);
+};
+
+export const getProductsByCategory = (category: string): Product[] => {
+  if (category === 'All') {
+    return products;
+  }
+  return products.filter(product => product.category === category);
+};
+
+export const getFeaturedProducts = (): Product[] => {
+  return products.filter(product => product.featured);
+};
+
 export const products: Product[] = [
   {
     id: '1',
@@ -333,7 +369,7 @@ export const products: Product[] = [
     description: 'Ultra-fast external SSD with 1TB storage capacity, compact design, and USB-C connectivity for quick file transfers.',
     price: 169.99,
     images: [
-      'https://images.unsplash.com/photo-1581368135153-a506cf13531c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
+      'https://images.unsplash.com/photo-1581368135153-a506c61ea9bc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
     ],
     category: 'Computers',
     featured: false,
@@ -385,7 +421,7 @@ export const products: Product[] = [
     description: 'High-carbon stainless steel 8-inch chef\'s knife with ergonomic handle. Precision-forged for balance and durability.',
     price: 129.99,
     images: [
-      'https://images.unsplash.com/photo-1593618998160-854bc2be0c21?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
+      'https://images.unsplash.com/photo-1593618998160-854bc2be0c21?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
     ],
     category: 'Kitchen',
     featured: false,
@@ -450,7 +486,7 @@ export const products: Product[] = [
     description: 'Three-axis gimbal stabilizer with tracking features and extended battery life for professional-looking smartphone videos.',
     price: 129.99,
     images: [
-      'https://images.unsplash.com/photo-1595587637401-47fd84d5baff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
+      'https://images.unsplash.com/photo-1595587637401-47fd84d5baff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
     ],
     category: 'Electronics',
     featured: false,
@@ -489,4 +525,38 @@ export const products: Product[] = [
     description: '4K action camera with electronic image stabilization, waterproof case, and various mounting accessories for adventure photography.',
     price: 199.99,
     images: [
-      'https://images.unsplash.com/photo-1625014618427-fbc980b974f2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fA%3D%3D&auto=format&fit=crop&w=1000&
+      'https://images.unsplash.com/photo-1625014618427-fbc980b974f2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
+    ],
+    category: 'Electronics',
+    featured: false,
+    inStock: true,
+    rating: 4.7,
+  },
+  {
+    id: '39',
+    name: 'Smart Watch',
+    description: 'Feature-packed smartwatch with health monitoring, notifications, and customizable watch faces. Water-resistant and long battery life.',
+    price: 249.99,
+    images: [
+      'https://images.unsplash.com/photo-1579586337278-3befd40fd17a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
+    ],
+    category: 'Electronics',
+    featured: true,
+    inStock: true,
+    rating: 4.8,
+  },
+  {
+    id: '40',
+    name: 'Home Office Desk Chair',
+    description: 'Comfortable and stylish desk chair perfect for your home office setup. Features adjustable height and ergonomic support.',
+    price: 179.99,
+    images: [
+      'https://images.unsplash.com/photo-1596079890744-c1a0462d0975?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
+    ],
+    category: 'Home Office',
+    featured: true,
+    inStock: true,
+    rating: 4.6,
+  },
+];
+
