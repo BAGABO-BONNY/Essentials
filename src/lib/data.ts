@@ -1,4 +1,6 @@
 import { Product } from './types';
+import { products50To100 } from './productsData';
+import { products75To100 } from './productsData2';
 
 export const categories = [
   'All',
@@ -21,22 +23,7 @@ export const categories = [
   'Home Appliances'
 ];
 
-export const getProductById = (id: string): Product | undefined => {
-  return products.find(product => product.id === id);
-};
-
-export const getProductsByCategory = (category: string): Product[] => {
-  if (category === 'All') {
-    return products;
-  }
-  return products.filter(product => product.category === category);
-};
-
-export const getFeaturedProducts = (): Product[] => {
-  return products.filter(product => product.featured);
-};
-
-export const products: Product[] = [
+const productsBase: Product[] = [
   {
     id: '1',
     name: 'Minimalist Desk Lamp',
@@ -330,7 +317,7 @@ export const products: Product[] = [
     description: 'Customizable mechanical keyboard with RGB backlighting, programmable keys, and hot-swappable switches for a personalized typing experience.',
     price: 149.99,
     images: [
-      'https://images.unsplash.com/photo-1595044426077-d36d9236d44a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
+      'https://images.unsplash.com/photo-1595044426077-d36d923c1fdc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
     ],
     category: 'Computers',
     featured: false,
@@ -447,7 +434,7 @@ export const products: Product[] = [
     description: 'Handcrafted macrame wall hanging made from 100% cotton rope. Each piece is unique and adds texture to your wall decor.',
     price: 79.99,
     images: [
-      'https://images.unsplash.com/photo-1622163642998-74ea921c0e55?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
+      'https://images.unsplash.com/photo-1622163642998-74ea921c0e55?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
     ],
     category: 'Home Decor',
     featured: true,
@@ -512,4 +499,197 @@ export const products: Product[] = [
     description: 'High-capacity power bank with fast charging support, dual USB ports, and USB-C input/output. Charge multiple devices on the go.',
     price: 59.99,
     images: [
-      'https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB
+      'https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
+    ],
+    category: 'Electronics',
+    featured: false,
+    inStock: true,
+    rating: 4.7,
+  },
+  {
+    id: '38',
+    name: 'Action Camera',
+    description: '4K action camera with electronic image stabilization, waterproof case, and various mounting accessories for adventure photography.',
+    price: 199.99,
+    images: [
+      'https://images.unsplash.com/photo-1625014618427-fbc980b974f2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
+    ],
+    category: 'Electronics',
+    featured: false,
+    inStock: true,
+    rating: 4.4,
+  },
+  {
+    id: '39',
+    name: 'Smart Home Security Camera',
+    description: 'Indoor/outdoor security camera with motion detection, night vision, and cloud storage options for home monitoring.',
+    price: 149.99,
+    images: [
+      'https://images.unsplash.com/photo-1555664424-778a1e5e1b48?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
+    ],
+    category: 'Smart Home',
+    featured: false,
+    inStock: true,
+    rating: 4.3,
+  },
+  {
+    id: '40',
+    name: 'Fitness Tracker Watch',
+    description: 'Advanced fitness tracker with heart rate monitoring, sleep tracking, and 7-day battery life. Syncs with smartphone for notifications.',
+    price: 99.99,
+    images: [
+      'https://images.unsplash.com/photo-1557935728-e6d1eaabe558?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
+    ],
+    category: 'Fitness',
+    featured: true,
+    inStock: true,
+    rating: 4.6,
+  },
+  {
+    id: '41',
+    name: 'Ergonomic Desk Chair',
+    description: 'Fully adjustable ergonomic chair with breathable mesh back, lumbar support, and adjustable armrests for all-day comfort.',
+    price: 299.99,
+    images: [
+      'https://images.unsplash.com/photo-1561329047-e1ae11395696?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
+    ],
+    category: 'Home Office',
+    featured: false,
+    inStock: true,
+    rating: 4.7,
+  },
+  {
+    id: '42',
+    name: 'Adjustable Standing Desk',
+    description: 'Electric height-adjustable desk with programmable memory settings and cable management system for a clean workspace.',
+    price: 499.99,
+    images: [
+      'https://images.unsplash.com/photo-1611269154421-4e27233ac5c7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
+    ],
+    category: 'Home Office',
+    featured: true,
+    inStock: true,
+    rating: 4.8,
+  },
+  {
+    id: '43',
+    name: 'Modern File Cabinet',
+    description: 'Contemporary file cabinet with two drawers, built-in lock, and smooth-glide mechanism. Compact design fits under most desks.',
+    price: 129.99,
+    images: [
+      'https://images.unsplash.com/photo-1588964895597-cfccd259c31b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
+    ],
+    category: 'Home Office',
+    featured: false,
+    inStock: true,
+    rating: 4.3,
+  },
+  {
+    id: '44',
+    name: 'Compact Treadmill',
+    description: 'Foldable treadmill with digital display, multiple speed settings, and heart rate monitor. Perfect for home workouts in limited space.',
+    price: 599.99,
+    images: [
+      'https://images.unsplash.com/photo-1576678927484-cc907957088c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
+    ],
+    category: 'Fitness',
+    featured: false,
+    inStock: true,
+    rating: 4.5,
+  },
+  {
+    id: '45',
+    name: 'Adjustable Dumbbell Set',
+    description: 'Space-saving adjustable dumbbells that replace 15 sets of weights. Quick-adjust dial system lets you change weights effortlessly.',
+    price: 349.99,
+    images: [
+      'https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
+    ],
+    category: 'Fitness',
+    featured: true,
+    inStock: true,
+    rating: 4.7,
+  },
+  {
+    id: '46',
+    name: 'Resistance Bands Set',
+    description: 'Complete set of 5 resistance bands with different resistance levels, handles, ankle straps, and door anchor for full-body workouts.',
+    price: 29.99,
+    images: [
+      'https://images.unsplash.com/photo-1601422407692-ec4eeec1d9b3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
+    ],
+    category: 'Fitness',
+    featured: false,
+    inStock: true,
+    rating: 4.4,
+  },
+  {
+    id: '47',
+    name: 'Outdoor Dining Set',
+    description: '6-piece weather-resistant dining set including table and chairs with fade-resistant cushions for outdoor entertaining.',
+    price: 799.99,
+    images: [
+      'https://images.unsplash.com/photo-1600585152220-90363fe7e115?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
+    ],
+    category: 'Outdoor',
+    featured: true,
+    inStock: true,
+    rating: 4.6,
+  },
+  {
+    id: '48',
+    name: 'Patio Umbrella',
+    description: '10-foot cantilever patio umbrella with solar-powered LED lights and easy crank system. Provides optimal shade for outdoor spaces.',
+    price: 249.99,
+    images: [
+      'https://images.unsplash.com/photo-1602085298619-60708ad5ce45?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
+    ],
+    category: 'Outdoor',
+    featured: false,
+    inStock: true,
+    rating: 4.5,
+  },
+  {
+    id: '49',
+    name: 'Fire Pit Table',
+    description: 'Propane fire pit table with weatherproof wicker base, glass wind guard, and included lava rocks. Perfect for outdoor gatherings.',
+    price: 449.99,
+    images: [
+      'https://images.unsplash.com/photo-1578707791621-5ad7cefa3077?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
+    ],
+    category: 'Outdoor',
+    featured: true,
+    inStock: true,
+    rating: 4.8,
+  },
+  {
+    id: '50',
+    name: 'Gaming Desktop PC',
+    description: 'High-performance gaming PC with RGB lighting, liquid cooling, and the latest graphics card and processor for immersive gaming experiences.',
+    price: 1899.99,
+    images: [
+      'https://images.unsplash.com/photo-1587202372775-e229f172b9d7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
+    ],
+    category: 'Gaming',
+    featured: true,
+    inStock: true,
+    rating: 4.9,
+  }
+];
+
+export const products: Product[] = [...productsBase, ...products50To100, ...products75To100];
+
+export const getProductById = (id: string): Product | undefined => {
+  return products.find(product => product.id === id);
+};
+
+export const getProductsByCategory = (category: string): Product[] => {
+  if (category === 'All') {
+    return products;
+  }
+  return products.filter(product => product.category === category);
+};
+
+export const getFeaturedProducts = (): Product[] => {
+  return products.filter(product => product.featured);
+};
