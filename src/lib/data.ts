@@ -265,7 +265,7 @@ export const products: Product[] = [
     description: 'Immersive 5.1 channel soundbar with wireless subwoofer, Dolby Atmos support, and 4K pass-through for a cinematic audio experience.',
     price: 399.99,
     images: [
-      'https://images.unsplash.com/photo-1545454675-3531b543be5d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
+      'https://images.unsplash.com/photo-1545454675-3531b543be5d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
     ],
     category: 'Audio',
     featured: false,
@@ -421,7 +421,7 @@ export const products: Product[] = [
     description: 'High-carbon stainless steel 8-inch chef\'s knife with ergonomic handle. Precision-forged for balance and durability.',
     price: 129.99,
     images: [
-      'https://images.unsplash.com/photo-1593618998160-854bc2be0c21?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
+      'https://images.unsplash.com/photo-1593618998160-854bc2be0c21?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
     ],
     category: 'Kitchen',
     featured: false,
@@ -447,7 +447,7 @@ export const products: Product[] = [
     description: 'Handcrafted macrame wall hanging made from 100% cotton rope. Each piece is unique and adds texture to your wall decor.',
     price: 79.99,
     images: [
-      'https://images.unsplash.com/photo-1622163642998-74ea921c0e55?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
+      'https://images.unsplash.com/photo-1622163642998-74ea921c0e55?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
     ],
     category: 'Home Decor',
     featured: true,
@@ -486,7 +486,7 @@ export const products: Product[] = [
     description: 'Three-axis gimbal stabilizer with tracking features and extended battery life for professional-looking smartphone videos.',
     price: 129.99,
     images: [
-      'https://images.unsplash.com/photo-1595587637401-47fd84d5baff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
+      'https://images.unsplash.com/photo-1595587637401-47fd84d5baff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
     ],
     category: 'Electronics',
     featured: false,
@@ -499,7 +499,7 @@ export const products: Product[] = [
     description: '10.1-inch HD digital photo frame with Wi-Fi connectivity. Upload photos remotely and create slideshows of your favorite moments.',
     price: 159.99,
     images: [
-      'https://images.unsplash.com/photo-1595044426062-74d3cec86e9d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
+      'https://images.unsplash.com/photo-1595044426062-74d3cec86e9d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
     ],
     category: 'Electronics',
     featured: true,
@@ -512,51 +512,4 @@ export const products: Product[] = [
     description: 'High-capacity power bank with fast charging support, dual USB ports, and USB-C input/output. Charge multiple devices on the go.',
     price: 59.99,
     images: [
-      'https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
-    ],
-    category: 'Electronics',
-    featured: false,
-    inStock: true,
-    rating: 4.6,
-  },
-  {
-    id: '38',
-    name: 'Action Camera',
-    description: '4K action camera with electronic image stabilization, waterproof case, and various mounting accessories for adventure photography.',
-    price: 199.99,
-    images: [
-      'https://images.unsplash.com/photo-1625014618427-fbc980b974f2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
-    ],
-    category: 'Electronics',
-    featured: false,
-    inStock: true,
-    rating: 4.7,
-  },
-  {
-    id: '39',
-    name: 'Smart Watch',
-    description: 'Feature-packed smartwatch with health monitoring, notifications, and customizable watch faces. Water-resistant and long battery life.',
-    price: 249.99,
-    images: [
-      'https://images.unsplash.com/photo-1579586337278-3befd40fd17a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
-    ],
-    category: 'Electronics',
-    featured: true,
-    inStock: true,
-    rating: 4.8,
-  },
-  {
-    id: '40',
-    name: 'Home Office Desk Chair',
-    description: 'Comfortable and stylish desk chair perfect for your home office setup. Features adjustable height and ergonomic support.',
-    price: 179.99,
-    images: [
-      'https://images.unsplash.com/photo-1596079890744-c1a0462d0975?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
-    ],
-    category: 'Home Office',
-    featured: true,
-    inStock: true,
-    rating: 4.6,
-  },
-];
-
+      'https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB
