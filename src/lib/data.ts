@@ -1,3 +1,4 @@
+
 import { Product } from './types';
 
 export const products: Product[] = [
@@ -489,4 +490,38 @@ export const products: Product[] = [
     description: '4K action camera with electronic image stabilization, waterproof case, and various mounting accessories for adventure photography.',
     price: 199.99,
     images: [
-      'https://images.unsplash.com/photo-1625014618427-fbc980b974f2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90
+      'https://images.unsplash.com/photo-1625014618427-fbc980b974f2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
+    ],
+    category: 'Electronics',
+    featured: false,
+    inStock: true,
+    rating: 4.7,
+  },
+  // Add remaining products that may have been truncated
+  {
+    id: '39',
+    name: 'Wireless Gaming Controller',
+    description: 'Premium wireless game controller with customizable buttons, vibration feedback, and extended battery life for marathon gaming sessions.',
+    price: 69.99,
+    images: [
+      'https://images.unsplash.com/photo-1593305841991-05c297ba4575?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
+    ],
+    category: 'Electronics',
+    featured: false,
+    inStock: true,
+    rating: 4.8,
+  },
+  {
+    id: '40',
+    name: 'Designer Desk Organizer',
+    description: 'Modern desk organizer with compartments for stationery, devices, and accessories. Keeps your workspace tidy and stylish.',
+    price: 49.99,
+    images: [
+      'https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
+    ],
+    category: 'Home Office',
+    featured: false,
+    inStock: true,
+    rating: 4.5,
+  }
+];
