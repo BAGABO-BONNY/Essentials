@@ -525,3 +525,24 @@ export const products: Product[] = [
     rating: 4.5,
   }
 ];
+
+// Get product by ID
+export function getProductById(id: string): Product | undefined {
+  return products.find(product => product.id === id);
+}
+
+// Get products by category - returns all products if category is 'All'
+export function getProductsByCategory(category: string): Product[] {
+  if (category === 'All') {
+    return products;
+  }
+  return products.filter(product => product.category === category);
+}
+
+// Get featured products
+export function getFeaturedProducts(): Product[] {
+  return products.filter(product => product.featured);
+}
+
+// Export all available categories from the products data
+export const categories = ['All', 'Lighting', 'Furniture', 'Audio', 'Smart Home', 'Computers', 'Kitchen', 'Home Decor', 'Electronics', 'Home Office'];

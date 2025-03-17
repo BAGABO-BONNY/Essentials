@@ -2,9 +2,10 @@ import { useQuery } from '@tanstack/react-query';
 import api from '@/lib/api';
 import { toast } from '@/components/ui/use-toast';
 import { Product } from '@/lib/types';
+import { categories as allCategories } from '@/lib/data';
 
 // Get all available categories from the products data
-export const categories = ['All', 'Lighting', 'Furniture', 'Audio', 'Smart Home', 'Computers', 'Kitchen', 'Home Decor', 'Electronics', 'Home Office'];
+export const categories = allCategories;
 
 export function useProducts() {
   return useQuery({
