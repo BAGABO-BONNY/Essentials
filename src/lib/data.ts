@@ -1,4 +1,3 @@
-
 import { Product } from './types';
 
 export const products: Product[] = [
@@ -178,7 +177,7 @@ export const products: Product[] = [
     description: 'Electric height-adjustable standing desk with memory presets and anti-collision technology. Promotes a healthier work environment.',
     price: 459.99,
     images: [
-      'https://images.unsplash.com/photo-1544200175-cfacb60ad546?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
+      'https://images.unsplash.com/photo-1544200175-cfacb60ad546?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
     ],
     category: 'Furniture',
     featured: false,
@@ -230,7 +229,7 @@ export const products: Product[] = [
     description: 'Immersive 5.1 channel soundbar with wireless subwoofer, Dolby Atmos support, and 4K pass-through for a cinematic audio experience.',
     price: 399.99,
     images: [
-      'https://images.unsplash.com/photo-1545454675-3531b543be5d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
+      'https://images.unsplash.com/photo-1545454675-3531b543be5d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
     ],
     category: 'Audio',
     featured: false,
@@ -321,7 +320,7 @@ export const products: Product[] = [
     description: 'High-precision gaming mouse with adjustable DPI, programmable buttons, and ergonomic design for extended gaming sessions.',
     price: 79.99,
     images: [
-      'https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
+      'https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
     ],
     category: 'Computers',
     featured: false,
@@ -412,7 +411,7 @@ export const products: Product[] = [
     description: 'Handcrafted macrame wall hanging made from 100% cotton rope. Each piece is unique and adds texture to your wall decor.',
     price: 79.99,
     images: [
-      'https://images.unsplash.com/photo-1622163642998-74ea921c0e55?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
+      'https://images.unsplash.com/photo-1622163642998-74ea921c0e55?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
     ],
     category: 'Home Decor',
     featured: true,
@@ -464,7 +463,7 @@ export const products: Product[] = [
     description: '10.1-inch HD digital photo frame with Wi-Fi connectivity. Upload photos remotely and create slideshows of your favorite moments.',
     price: 159.99,
     images: [
-      'https://images.unsplash.com/photo-1595044426062-74d3cec86e9d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
+      'https://images.unsplash.com/photo-1595044426062-74d3cec86e9d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
     ],
     category: 'Electronics',
     featured: true,
@@ -477,7 +476,7 @@ export const products: Product[] = [
     description: 'High-capacity power bank with fast charging support, dual USB ports, and USB-C input/output. Charge multiple devices on the go.',
     price: 59.99,
     images: [
-      'https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
+      'https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
     ],
     category: 'Electronics',
     featured: false,
@@ -490,59 +489,4 @@ export const products: Product[] = [
     description: '4K action camera with electronic image stabilization, waterproof case, and various mounting accessories for adventure photography.',
     price: 199.99,
     images: [
-      'https://images.unsplash.com/photo-1625014618427-fbc980b974f2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
-    ],
-    category: 'Electronics',
-    featured: false,
-    inStock: true,
-    rating: 4.7,
-  },
-  // Add remaining products that may have been truncated
-  {
-    id: '39',
-    name: 'Wireless Gaming Controller',
-    description: 'Premium wireless game controller with customizable buttons, vibration feedback, and extended battery life for marathon gaming sessions.',
-    price: 69.99,
-    images: [
-      'https://images.unsplash.com/photo-1593305841991-05c297ba4575?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
-    ],
-    category: 'Electronics',
-    featured: false,
-    inStock: true,
-    rating: 4.8,
-  },
-  {
-    id: '40',
-    name: 'Designer Desk Organizer',
-    description: 'Modern desk organizer with compartments for stationery, devices, and accessories. Keeps your workspace tidy and stylish.',
-    price: 49.99,
-    images: [
-      'https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
-    ],
-    category: 'Home Office',
-    featured: false,
-    inStock: true,
-    rating: 4.5,
-  }
-];
-
-// Get product by ID
-export function getProductById(id: string): Product | undefined {
-  return products.find(product => product.id === id);
-}
-
-// Get products by category - returns all products if category is 'All'
-export function getProductsByCategory(category: string): Product[] {
-  if (category === 'All') {
-    return products;
-  }
-  return products.filter(product => product.category === category);
-}
-
-// Get featured products
-export function getFeaturedProducts(): Product[] {
-  return products.filter(product => product.featured);
-}
-
-// Export all available categories from the products data
-export const categories = ['All', 'Lighting', 'Furniture', 'Audio', 'Smart Home', 'Computers', 'Kitchen', 'Home Decor', 'Electronics', 'Home Office'];
+      'https://images.unsplash.com/photo-1625014618427-fbc980b974f2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fA%3D%3D&auto=format&fit=crop&w=1000&

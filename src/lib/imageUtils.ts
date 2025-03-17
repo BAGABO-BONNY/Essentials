@@ -9,6 +9,15 @@ export const categoryFallbackImages = {
   Kitchen: "https://images.unsplash.com/photo-1556911220-bda9da8a1f2c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
   "Home Decor": "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
   Electronics: "https://images.unsplash.com/photo-1550009158-9ebf69173e03?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+  "Home Office": "https://images.unsplash.com/photo-1544914379-806667cd9489?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+  Fitness: "https://images.unsplash.com/photo-1599058917765-a780eda07a3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+  Outdoor: "https://images.unsplash.com/photo-1620288627223-53302f4e8c74?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+  Gaming: "https://images.unsplash.com/photo-1605901309584-818e25960a8f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+  Accessories: "https://images.unsplash.com/photo-1608522050956-91c919c6badc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+  "Personal Care": "https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+  Bathroom: "https://images.unsplash.com/photo-1620626011761-996317b8d101?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+  Bedding: "https://images.unsplash.com/photo-1566665797739-1674de7a421a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+  "Home Appliances": "https://images.unsplash.com/photo-1615626187065-3f8f18a7bcd4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
 };
 
 // Default fallback image for general use
