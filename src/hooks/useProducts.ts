@@ -1,3 +1,4 @@
+
 import { useQuery } from '@tanstack/react-query';
 import api from '@/lib/api';
 import { toast } from '@/components/ui/use-toast';
@@ -161,4 +162,23 @@ export function useFilteredProducts(options: FilterOptions = {}) {
       },
     },
   });
+}
+
+export function useProductsByNewCategories() {
+  const { data: allProducts, isLoading, error } = useProducts();
+  
+  const productsByCategory = !isLoading && !error && allProducts
+    ? categories.reduce((acc, category) => {
+        if (category !== 'All') {
+          acc[category] = allProducts.filter(product => product.category === category);
+        }
+        return acc;
+      }, {} as Record<string, Product[]>)
+    : {};
+    
+  return {
+    productsByCategory,
+    isLoading,
+    error
+  };
 }

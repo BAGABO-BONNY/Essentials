@@ -1,3 +1,4 @@
+
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { CartItem, Product } from '@/lib/types';
 import { toast } from '@/components/ui/use-toast';
@@ -15,6 +16,7 @@ interface CartContextType {
   incrementQuantity: (productId: string) => void;
   decrementQuantity: (productId: string) => void;
   maxQuantityPerItem: number;
+  moveToWishlist?: (productId: string) => void; // Optional method to move items to wishlist
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -35,6 +37,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
         setCart(JSON.parse(storedCart));
       } catch (error) {
         console.error('Failed to parse cart from localStorage', error);
+        localStorage.removeItem('cart'); // Clear invalid cart data
       }
     }
     setMounted(true);
