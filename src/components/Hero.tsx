@@ -67,12 +67,12 @@ const Hero = () => {
                 onClick={() => navigate('/products')}
               >
                 <span className="relative z-10">Shop Now</span>
-                <div className="absolute inset-0 bg-white scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
+                <div className="absolute inset-0 bg-gray scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
               </Button>
               <Button 
                 variant="outline" 
                 size="lg" 
-                className="text-white border-white hover:bg-white/10"
+                className="text-gray-500 border-gray hover:bg-white/50 "
                 onClick={() => navigate('/about')}
               >
                 Learn More

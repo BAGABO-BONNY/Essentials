@@ -75,7 +75,7 @@ const About = () => {
               <div className="rounded-2xl overflow-hidden shadow-lg hover-lift">
                 <AspectRatio ratio={1/1}>
                   <img 
-                    src="https://images.unsplash.com/photo-1544963222-cc83c1ca1192?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" 
+                    src="../../Download_premium_png_of_PNG_Man_using_holding_laptop_computer_portrait_adult_about_png__face__person__men__and_laptop_13164030-removebg-preview.png" 
                     alt="Our store" 
                     className="w-full h-full object-cover"
                   />
@@ -235,7 +235,7 @@ const About = () => {
         <div className="page-container">
           <div className="max-w-4xl mx-auto text-center">
             <div className="text-5xl font-serif mb-6">"</div>
-            <p className="text-2xl md:text-3xl font-light italic mb-8 text-white/90">
+            <p className="text-2xl md:text-3xl font-light italic mb-8 text-gray/90">
               We believe that thoughtfully designed products can bring joy and simplicity to everyday moments. 
               That's why we're committed to curating items that are as functional as they are beautiful.
             </p>
