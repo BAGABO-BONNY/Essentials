@@ -1,6 +1,7 @@
 
 import { Link } from 'react-router-dom';
 import { Instagram, Twitter, Facebook, Mail } from 'lucide-react';
+import { Github } from 'lucide-react';
 
 const Footer = () => {
   return (
@@ -13,8 +14,8 @@ const Footer = () => {
               Curated premium products for modern living.
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
-                <Instagram size={20} />
+              <a href="https://github.com/BAGABO-BONNY" className="text-muted-foreground hover:text-primary transition-colors">
+              <Github size={20} />
               </a>
               <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
                 <Twitter size={20} />
