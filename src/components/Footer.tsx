@@ -17,13 +17,13 @@ const Footer = () => {
               <a href="https://github.com/BAGABO-BONNY" className="text-muted-foreground hover:text-primary transition-colors">
               <Github size={20} />
               </a>
-              <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+              <a href="https://x.com/BagaboBonn56348" className="text-muted-foreground hover:text-primary transition-colors">
                 <Twitter size={20} />
               </a>
               <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
                 <Facebook size={20} />
               </a>
-              <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+              <a href="bagabobony544@gmail.com" className="text-muted-foreground hover:text-primary transition-colors">
                 <Mail size={20} />
               </a>
             </div>
