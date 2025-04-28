@@ -1,6 +1,7 @@
 
 import { Link } from 'react-router-dom';
-import { Instagram, Twitter, Facebook, Mail } from 'lucide-react';
+import { InstagramIcon, TwitterIcon, FacebookIcon, Mail } from 'lucide-react';
+
 
 const Footer = () => {
   return (
@@ -14,15 +15,15 @@ const Footer = () => {
             </p>
             <div className="flex space-x-4">
               <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
-                <Instagram size={20} />
+                <InstagramIcon size={20} />
               </a>
-              <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
-                <Twitter size={20} />
+              <a href="https://x.com/BagaboBonn56348" className="text-muted-foreground hover:text-primary transition-colors">
+                <TwitterIcon size={20} />
               </a>
-              <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
-                <Facebook size={20} />
+              <a href="https://www.facebook.com/profile.php?id=61555186797204" className="text-muted-foreground hover:text-primary transition-colors">
+                <FacebookIcon size={20} />
               </a>
-              <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+              <a href="bagabobonny544@gmail.com" className="text-muted-foreground hover:text-primary transition-colors">
                 <Mail size={20} />
               </a>
             </div>
